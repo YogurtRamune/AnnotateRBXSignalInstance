@@ -4,16 +4,16 @@
 local RBXSignalInstanceAnnotate = table.freeze({})
 
 type ConnectAtServer<FiredParameter...> = {
-	Connect: (self: ConnectAtServer<FiredParameter...>, player: Player, FiredParameter...) -> (),
-	Once: (self: ConnectAtServer<FiredParameter...>, player: Player, FiredParameter...) -> (),
+	Connect: (self: ConnectAtServer<FiredParameter...>, player: Player, FiredParameter...) -> RBXScriptConnection,
+	Once: (self: ConnectAtServer<FiredParameter...>, player: Player, FiredParameter...) -> RBXScriptConnection,
 	Wait: (self: ConnectAtServer<FiredParameter...>) -> (Player, FiredParameter...),
-}
+} & RBXScriptConnection
 
 type ConnectAtClient<FiredParameter...> = {
-	Connect: (self: ConnectAtClient<FiredParameter...>, FiredParameter...) -> (),
-	Once: (self: ConnectAtClient<FiredParameter...>, FiredParameter...) -> (),
+	Connect: (self: ConnectAtClient<FiredParameter...>, FiredParameter...) -> RBXScriptConnection,
+	Once: (self: ConnectAtClient<FiredParameter...>, FiredParameter...) -> RBXScriptConnection,
 	Wait: (self: ConnectAtClient<FiredParameter...>) -> (FiredParameter...),
-}
+} & RBXScriptSignal
 
 export type AnnotateRemoteEvent<ToClient..., ToServer...> = {
 	FireAllClients: (self: AnnotateRemoteEvent<ToClient..., ToServer...>, ToClient...) -> (),
